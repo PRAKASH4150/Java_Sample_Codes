@@ -48,7 +48,7 @@ public class StudentRecordSystem {
     }
 
     /**
-     * calculateAverageGpa is used to calculate the average CGPA for all the students present in
+     * calculateAverageGpa is used to calculate the average GPA for all the students present in
      * the array
      */
 
@@ -67,7 +67,11 @@ public class StudentRecordSystem {
         return cgpa/count;
     }
 
-
+    /**
+     * The main method calls every other method defined in the class. It kind of
+     * orchestrate the application
+     * @param args
+     */
     public static void main(String[] args)
     {
         String studentName;
