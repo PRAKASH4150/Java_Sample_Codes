@@ -1,0 +1,264 @@
+Test Case:1
+
+Scenario: Entering an Invalid menu option.
+
+Result:
+
+Please Enter your name:
+Prakash
+
+Prakash, Welcome to Roboticket.com where all shows and seats are one low price!
+    1. Adult 125.00
+    2. Child under 12 62.50
+    3. Senior Citizen 100.00
+    4. Finish & Pay
+    5. Cancel
+Please select 1, 2, 3, 4 or 5 and press enter: 6
+Invalid Menu Option. Please try again!!
+Please select 1, 2, 3, 4 or 5 and press enter:
+
+Test Case:2
+
+Scenario: Entering an Invalid menu option. In this case a non-numeric input
+
+Result:
+
+Please Enter your name:
+Prakash
+
+Prakash, Welcome to Roboticket.com where all shows and seats are one low price!
+    1. Adult 125.00
+    2. Child under 12 62.50
+    3. Senior Citizen 100.00
+    4. Finish & Pay
+    5. Cancel
+Please select 1, 2, 3, 4 or 5 and press enter: tyu
+Numeric Input expected. Please try again
+Please select 1, 2, 3, 4 or 5 and press enter: 
+
+
+Test Case:3
+
+Scenario: Enter a valid menu option, the program should ask for the quantity of tickets
+
+Result:
+
+Please Enter your name:
+Prakash
+
+Prakash, Welcome to Roboticket.com where all shows and seats are one low price!
+    1. Adult 125.00
+    2. Child under 12 62.50
+    3. Senior Citizen 100.00
+    4. Finish & Pay
+    5. Cancel
+Please select 1, 2, 3, 4 or 5 and press enter: 1
+Please enter the number of tickets you would like:
+
+
+
+Test Case : 4
+
+Scenario: Entering an invalid number of tickets (less than 1 or more than 20)
+
+Result:
+
+Please Enter your name:
+Prakash
+
+Prakash, Welcome to Roboticket.com where all shows and seats are one low price!
+    1. Adult 125.00
+    2. Child under 12 62.50
+    3. Senior Citizen 100.00
+    4. Finish & Pay
+    5. Cancel
+Please select 1, 2, 3, 4 or 5 and press enter: 1
+Please enter the number of tickets you would like: 56
+Quantity out of Range.
+Please enter values between 1 and 20
+Please enter the number of tickets you would like:
+
+Test Case : 5
+
+Scenario: Entering an invalid number of tickets. In this case a non-numeric input
+
+Result:
+
+Please Enter your name:
+Prakash
+
+Prakash, Welcome to Roboticket.com where all shows and seats are one low price!
+    1. Adult 125.00
+    2. Child under 12 62.50
+    3. Senior Citizen 100.00
+    4. Finish & Pay
+    5. Cancel
+Please select 1, 2, 3, 4 or 5 and press enter: 1
+Please enter the number of tickets you would like: ert
+Numeric Input expected.Please Try again.
+Please enter the number of tickets you would like:
+
+Test Case : 6
+
+Scenario: Enter a valid number of tickets. Then the program should display the type of tickets and
+number of tickets ordered
+
+Result:
+
+Please Enter your name:
+Prakash
+
+Prakash, Welcome to Roboticket.com where all shows and seats are one low price!
+    1. Adult 125.00
+    2. Child under 12 62.50
+    3. Senior Citizen 100.00
+    4. Finish & Pay
+    5. Cancel
+Please select 1, 2, 3, 4 or 5 and press enter: 1
+Please enter the number of tickets you would like: 2
+2 Adult Tickets Were ordered.
+---------------------------------------------------------------------------
+    1. Adult 125.00
+    2. Child under 12 62.50
+    3. Senior Citizen 100.00
+    4. Finish & Pay
+    5. Cancel
+Please select 1, 2, 3, 4 or 5 and press enter:
+
+Test Case : 7
+
+Scenario: After ordering one kind of tickets for the first time, the program  should allow
+the user to order multiple type of tickets per session.
+
+Result:
+Please Enter your name:
+Prakash
+
+Prakash, Welcome to Roboticket.com where all shows and seats are one low price!
+    1. Adult 125.00
+    2. Child under 12 62.50
+    3. Senior Citizen 100.00
+    4. Finish & Pay
+    5. Cancel
+Please select 1, 2, 3, 4 or 5 and press enter: 1
+Please enter the number of tickets you would like: 2
+2 Adult Tickets Were ordered.
+---------------------------------------------------------------------------
+    1. Adult 125.00
+    2. Child under 12 62.50
+    3. Senior Citizen 100.00
+    4. Finish & Pay
+    5. Cancel
+Please select 1, 2, 3, 4 or 5 and press enter: 2
+Please enter the number of tickets you would like: 2
+2 Child Tickets Were ordered.
+---------------------------------------------------------------------------
+    1. Adult 125.00
+    2. Child under 12 62.50
+    3. Senior Citizen 100.00
+    4. Finish & Pay
+    5. Cancel
+Please select 1, 2, 3, 4 or 5 and press enter:
+
+Test Case 8:
+
+Scenario: After the user opts for finish and pay, the program should display the total price
+for the different kinds of tickets that were ordered and prompt him to pay using debit/credit,
+Apple Pay or Android Pay and should print a closing message
+
+Result:
+
+Please Enter your name:
+Prakash
+
+Prakash, Welcome to Roboticket.com where all shows and seats are one low price!
+    1. Adult 125.00
+    2. Child under 12 62.50
+    3. Senior Citizen 100.00
+    4. Finish & Pay
+    5. Cancel
+Please select 1, 2, 3, 4 or 5 and press enter: 1
+Please enter the number of tickets you would like: 2
+2 Adult Tickets Were ordered.
+---------------------------------------------------------------------------
+    1. Adult 125.00
+    2. Child under 12 62.50
+    3. Senior Citizen 100.00
+    4. Finish & Pay
+    5. Cancel
+Please select 1, 2, 3, 4 or 5 and press enter: 2
+Please enter the number of tickets you would like: 2
+2 Child Tickets Were ordered.
+---------------------------------------------------------------------------
+    1. Adult 125.00
+    2. Child under 12 62.50
+    3. Senior Citizen 100.00
+    4. Finish & Pay
+    5. Cancel
+Please select 1, 2, 3, 4 or 5 and press enter: 4
+---------------------------------------------------------------------------
+Total price: $375.00
+Please swipe your credit/debit card, then take your tickets.
+
+We accept Apple Pay™ or Andriod Pay™
+
+*****Have a great show*****
+Program Terminated Successfully
+---------------------------------------------------------------------------
+
+Process finished with exit code 0
+
+Test case : 9
+
+Scenario: If the user tries to opt Option-4 (Finish and Pay) from the menu without even ordering one
+kind of tickets, then the program should display a message something like "You didn't ordered any tickets"
+and the total price should be $0.00
+
+Result:
+
+Please Enter your name:
+Prakash
+
+Prakash, Welcome to Roboticket.com where all shows and seats are one low price!
+    1. Adult 125.00
+    2. Child under 12 62.50
+    3. Senior Citizen 100.00
+    4. Finish & Pay
+    5. Cancel
+Please select 1, 2, 3, 4 or 5 and press enter: 4
+---------------------------------------------------------------------------
+Total price: $0.00
+Seems like you didn't ordered for any kind of tickets.
+Program Terminated Successfully
+---------------------------------------------------------------------------
+
+Process finished with exit code 0
+
+Test Case : 10
+
+Scenario: If the user opt's option-5 "Cancel" at any point in the program, the program should
+terminate immediately.
+
+Result:
+
+Please Enter your name:
+Prakash
+
+Prakash, Welcome to Roboticket.com where all shows and seats are one low price!
+    1. Adult 125.00
+    2. Child under 12 62.50
+    3. Senior Citizen 100.00
+    4. Finish & Pay
+    5. Cancel
+Please select 1, 2, 3, 4 or 5 and press enter: 1
+Please enter the number of tickets you would like: 2
+2 Adult Tickets Were ordered.
+---------------------------------------------------------------------------
+    1. Adult 125.00
+    2. Child under 12 62.50
+    3. Senior Citizen 100.00
+    4. Finish & Pay
+    5. Cancel
+Please select 1, 2, 3, 4 or 5 and press enter: 5
+Program Terminated Successfully
+

@@ -1,10 +1,11 @@
 import java.util.*;
 /**
  * RoboTickets.java:
- * Seed java file for P2 - RoboTickets
+ * This Program helps to order show tickets to different age groups
+ * and calculate the total price that the end user supposed to pay.
  *
- * @author Mr Shokite
- * @author Sai Surya Prakash Moka
+ * @author-1 Mr Shokite
+ * @author-2 Sai Surya Prakash Moka
  *
  * @date 09/09/2023
  */
@@ -25,8 +26,8 @@ public class RoboTickets {
      */
     public RoboTickets(double price) {
         adult = price;
-        child = Math.ceil(100 * (0.5 * price)) / 100;      // Round the fraction up.
-        senior = Math.ceil(100 * (0.8 * price)) / 100;      // Round the fraction up.
+        child = Math.ceil(100 * (0.5 * price)) / 100; // Round the fraction up.
+        senior = Math.ceil(100 * (0.8 * price)) / 100;// Round the fraction up.
     }
 
     /**
@@ -34,50 +35,69 @@ public class RoboTickets {
      * senior tickets may be purchased.
      */
     public void go() {
-        double price=0; // If there is no default below, use   price = 0;
-        double totalPrice=0;
+        double price=0; // If there is no default below, use   price = 0
         int choice=0, quantity=0;
-        String ticketType="";
+        double totalPrice=0; //Added this variable to display the totalPrice
+        String ticketType="";// Added this variable to display the ticket type
+        String userName;
 
-        //Modified the welcome message to show my name
-        System.out.println("\nWelcome to Roboticket.com where all shows and seats are one low price!\n" +
-                "Recently made code modifications by Sai Surya Prakash Moka");
+        //Modified the welcome message to show the author name
+        System.out.println("Please Enter your name:");
+        userName=sc.nextLine();
+        System.out.println("\n"+userName+", Welcome to Roboticket.com where all shows and" +
+                " seats are one low price!");
         while (true) {
-            System.out.printf("    1. Adult %.2f\n    2. Child under 12 %.2f\n", adult, child);
+            System.out.printf("    1. Adult %.2f\n" +
+                    "    2. Child under 12 %.2f\n", adult, child);
             System.out.printf("    3. Senior Citizen %.2f\n", senior);
-            System.out.println("    4.Finish & Pay");
+            System.out.println("    4. Finish & Pay");
+            System.out.println("    5. Cancel");
             for (; ; ) {
+                /*Added validation code to handle bad menu choices like
+                non-numeric input and menu choice out of range */
                 try
                 {
-                    System.out.print("Please select 1, 2, 3 or 4 and press enter: ");
+                    System.out.print("Please select 1, 2, 3, 4 or 5 and " +
+                            "press enter: ");
                     choice = sc.nextInt();
-                    if (choice > 0 && choice <= 4)
+                    if (choice > 0 && choice <= 5)
                     {
                         break;
                     }
+                    else
+                    {
+                        System.out.println("Invalid Menu Option." +
+                                " Please try again!!");
+                    }
                 }
                 catch (InputMismatchException inputMismatchException) {
-                    String junk = sc.nextLine();   // Discard chars to end of line.
-                    System.out.println("Bad menu choice. Please try again");
+                    sc.nextLine();
+                    System.out.println("Numeric Input expected." +
+                            " Please try again");
                 }
             }
-            if(choice==4)
+            if(choice==4 || choice==5)
             {
                 break;
             }
 
-            //Created a validation loop to validate qty.
+             /*Added validation code to validate quantity for bad inputs like
+                non-numeric input and quantity out of range */
+
             for (; ; ) {
                 try {
-                    System.out.print("Please enter the number of tickets you would like: ");
+                    System.out.print("Please enter the number of tickets" +
+                            " you would like: ");
                     quantity = sc.nextInt();    // Should be validated!
                     if (quantity >= 1 & quantity <= 20) {
                         break;
                     } else {
-                        System.out.println("Quantity out of Range.\nPlease enter values between 1 and 20");
+                        System.out.println("Quantity out of Range." +
+                                "\nPlease enter values between 1 and 20");
                     }
                 } catch (InputMismatchException inputMismatchException) {
-                    System.out.println("Numeric Input expected.Please Try again.");
+                    System.out.println("Numeric Input expected." +
+                            "Please Try again.");
                     sc.nextLine();
                 }
             }
@@ -98,18 +118,43 @@ public class RoboTickets {
                 default:
                     price = 0;
             }
+            /* The below 4 lines of code display the qty
+            and type of tickets that were ordered
+            and calculates the total price up to that point */
+
             System.out.printf("%d ",quantity);
             System.out.println(ticketType+" Tickets Were ordered.");
-            System.out.println("---------------------------------------------------------------------------");
+            System.out.println("-------------------------------------" +
+                    "--------------------------------------");
             totalPrice+=quantity*price;
         }
-        System.out.println("---------------------------------------------------------------------------");
-        System.out.printf("Total price: $%.2f",totalPrice);
-        System.out.println("\nPlease swipe your credit card, then take your tickets.");
-        System.out.println("---------------------------------------------------------------------------");
+        if(choice==4){
+            System.out.println("-----------------------------------------" +
+                    "----------------------------------");
+            System.out.printf("Total price: $%.2f",totalPrice);
+            if(totalPrice!=0)
+            {
+                System.out.println("\nPlease swipe your" +
+                        " credit/debit card, then take your tickets.");
+                System.out.println("\nWe accept Apple Pay™ or Android Pay™ ");
+                System.out.println("\n*****Have a great show*****");
+            }
+            else {
+                System.out.println("\nSeems like yo" +
+                        "u didn't ordered for any kind of tickets.");
+            }
+            System.out.println("Program Terminated Successfully");
+            System.out.println("--------------------------------------" +
+                    "-------------------------------------");
+        }
+        else if(choice==5)
+        {
+            System.out.println("Program Terminated Successfully");
+        }
+
     }
 
-        //    -------------------------------------------------------------------------------------------
+
         public static void main (String []args){
             RoboTickets rt = new RoboTickets(125.00);
             rt.go();
