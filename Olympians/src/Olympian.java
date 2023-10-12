@@ -1,11 +1,27 @@
+/**
+ * Olympian.java: This is a base POJO class which is used to initialize
+ * the data members and also to compute the total number of medals won
+ * by all the players.
+ *
+ * @author: Sai Surya Prakash Moka
+ * @date: 09/20/2023
+ */
+
 import java.util.List;
 import java.util.LinkedList;
 public class Olympian {
-    String name;
-    String sport;
-    int numMedals;
-    String event;
+    private String name;
+    private String sport;
+    private int numMedals;
+    private String event;
 
+    /**
+     * Initializing the fields using the parameterized constructor
+     * @param name
+     * @param sport
+     * @param numMedals
+     * @param event
+     */
     Olympian(String name,String sport,int numMedals,String event)
     {
         this.name=name;
@@ -33,6 +49,12 @@ public class Olympian {
         return  this.event;
     }
 
+    /**
+     * Calculates the total number of medals won by all the players.
+     * @param olympianList
+     * @return totalNumMedals
+     */
+
     public static int computeMedals(List<Olympian> olympianList)
     {
         int totalNumMedals=0;
@@ -43,6 +65,11 @@ public class Olympian {
         return totalNumMedals;
 
     }
+
+    /**
+     *
+     * @return details of each player record.
+     */
     @Override
     public String toString()
     {

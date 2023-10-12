@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/LibraryManagement.iml" filepath="$PROJECT_DIR$/LibraryManagement.iml" />
+      <module fileurl="file://$PROJECT_DIR$/TransactionsManager.iml" filepath="$PROJECT_DIR$/TransactionsManager.iml" />
     </modules>
   </component>
 </project>

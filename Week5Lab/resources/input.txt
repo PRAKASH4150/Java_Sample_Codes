@@ -1,0 +1,4 @@
+This is a sample text file.
+It contains some words for testing the program.
+Word count should be calculated based on spaces and punctuation! Is this Program really working?
+I dont know. it seems like it is working. But testing is needed further.
