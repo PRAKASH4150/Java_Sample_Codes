@@ -7,7 +7,7 @@
  *
  * @date 09-10-2023.
  */
-public class ElectronicProduct extends Product implements Purchasable {
+public class ElectronicProduct extends Product {
 
     private String brand;
     private String productType;
@@ -44,13 +44,5 @@ public class ElectronicProduct extends Product implements Purchasable {
                 "\nQuantity:"+this.quantity);
     }
 
-    /**
-     *
-     * @param qty- Accepts Qty
-     * @return - Returns qty multiplied by price.
-     */
-    @Override
-    public double calculatePrice(int qty) {
-        return qty*this.price;
-    }
+
 }

@@ -6,7 +6,7 @@
  *
  * @date 09-10-2023.
  */
-public abstract class Product {
+public abstract class Product implements Purchasable{
     protected int productId;
     protected String productName;
     protected double price;
@@ -30,6 +30,8 @@ public abstract class Product {
         this.quantity=quantity;
     }
 
+    abstract void displayInfo();
+
     /**
      * @return quantity represented as Integer.
      */
@@ -37,5 +39,14 @@ public abstract class Product {
     {
         return this.quantity;
     }
-    abstract void displayInfo();
+
+     /**
+     *
+     * @param qty- Accepts Qty
+     * @return - Returns qty multiplied by price.
+     */
+    @Override
+    public double calculatePrice(int qty) {
+        return qty*this.price;
+    }
 }
