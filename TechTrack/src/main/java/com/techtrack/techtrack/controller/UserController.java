@@ -1,6 +1,15 @@
+/**
+ * UserController.java: This file acts as the controller class
+ * and intercepts all the HTTP requests.
+ *
+ * @author Sai Surya Prakash Moka
+ *
+ * @date 10-18-2023
+ */
 package com.techtrack.techtrack.controller;
 
 import com.techtrack.techtrack.model.UserInfo;
+import com.techtrack.techtrack.model.UserInfoWrapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -15,24 +24,40 @@ public class UserController {
 
     private List<UserInfo> userDetailList=new ArrayList<UserInfo>();
 
+    /**
+     * getAllUserDetails(): This method is used to return the details
+     * of all the users stored in the list.
+     * @return ResponseEntity<UserInfoWrapper>
+     */
     @GetMapping("/getallusers")
-    public ResponseEntity<List<UserInfo>> getAllUserDetails()
+    public ResponseEntity<UserInfoWrapper> getAllUserDetails()
     {
+        UserInfoWrapper userInfoWrapper=new UserInfoWrapper();
        if(userDetailList.isEmpty())
        {
-           return ResponseEntity.notFound().build();
+           userInfoWrapper.setInfoMessage("No records to display.");
        }
        else{
-           return ResponseEntity.ok(userDetailList);
+           userInfoWrapper.getUserInfoList().addAll(userDetailList);
        }
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(userInfoWrapper);
+
     }
 
+    /**
+     * getUserById(): This method is used to fetch the user by the ID
+     * and return the record if found.
+     * @param id - Unique identifier assigned to each user
+     * @return ResponseEntity<UserInfoWrapper>
+     */
     @GetMapping("/getuserbyid/{id}")
-    public ResponseEntity<UserInfo> getUserById(@PathVariable("id") int id)
+    public ResponseEntity<UserInfoWrapper> getUserById(@PathVariable("id") int id)
     {
-        if(userDetailList.isEmpty())
-        {
-            return ResponseEntity.notFound().build();
+        UserInfoWrapper userInfoWrapper=new UserInfoWrapper();
+        boolean foundFlag=false;
+
+        if(userDetailList.isEmpty()) {
+            userInfoWrapper.setInfoMessage("No records to display.");
         }
         else
         {
@@ -40,59 +65,126 @@ public class UserController {
             {
                 if(user.getUserId()==id)
                 {
-                    return ResponseEntity.ok(user);
-                }
-                else
-                {
-                    return ResponseEntity.notFound().build();
+                    userInfoWrapper.getUserInfoList().add(user);
+                    foundFlag=true;
+                    break;
                 }
             }
-        }
-        return ResponseEntity.notFound().build();
-    }
 
-    @PostMapping(value = "/createuser",consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<UserInfo> createUser(@RequestBody UserInfo userDetails )
-    {
-        userDetailList.add(userDetails);
-        return ResponseEntity.status(HttpStatus.CREATED).body(userDetails);
-
-    }
-
-
-    @PutMapping("/updateuser/{id}")
-    public ResponseEntity<UserInfo> updateUserById(@PathVariable int id,@RequestBody UserInfo userInfo)
-    {
-        for(UserInfo user:userDetailList)
-        {
-            if(user.getUserId()==id)
+            if(!foundFlag)
             {
-                user.setFirstName(userInfo.getFirstName());
-                user.setLastName(userInfo.getLastName());
-                user.setAge(userInfo.getAge());
-                return ResponseEntity.ok(userInfo);
-            }
-            else {
-                return ResponseEntity.notFound().build();
+                userInfoWrapper.setInfoMessage("No record with the given ID exists.");
             }
         }
-        return ResponseEntity.notFound().build();
+            return ResponseEntity.status(HttpStatus.ACCEPTED).body(userInfoWrapper);
     }
 
-    @DeleteMapping("deleteuserbyid/{id}")
-    public ResponseEntity<List<UserInfo>> deleteUserById(@PathVariable int id)
+    /**
+     * createUser(): This method is used to add a new user to the end
+     * of the list.
+     * @param userDetails- Takes the user record as an argument.
+     * @return ResponseEntity<UserInfoWrapper>
+     *
+     */
+    @PostMapping(value = "/createuser",consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<UserInfoWrapper> createUser(@RequestBody UserInfo userDetails )
     {
+        UserInfoWrapper userInfoWrapper =new UserInfoWrapper();
+        boolean dupUser=false;
+        for(UserInfo userRecord:userDetailList)
+        {
+            if(userRecord.getUserId()==userDetails.getUserId())
+            {
+                dupUser=true;
+                break;
+            }
+        }
+        if(dupUser)
+        {
+            userInfoWrapper.setErrorMessage("User with the same ID already exists. Please double check");
+        }
+        else {
+            userDetailList.add(userDetails);
+            userInfoWrapper.getUserInfoList().add(userDetails);
+            userInfoWrapper.setInfoMessage("User record added successfully!!");
+        }
+
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(userInfoWrapper);
+
+    }
+
+    /**
+     * updateUserById(): This method is used to update an existing user
+     * by taking ID as the parameter. If a record is found with the
+     * given ID, it will update or else it will throw an error
+     * message.
+     * @param id - Unique Identifier assigned to the user
+     * @param userInfo - Object consisting of updated user info
+     * @return ResponseEntity<UserInfoWrapper>
+     */
+
+    @PutMapping(value="/updateuser/{id}",consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<UserInfoWrapper> updateUserById(@PathVariable("id") int id,@RequestBody UserInfo userInfo)
+    {
+        UserInfoWrapper userInfoWrapper=new UserInfoWrapper();
+        boolean foundFlag=false;
+        if(userDetailList.isEmpty()) {
+            userInfoWrapper.setInfoMessage("No records to display.");
+        }
+        else
+        {
+            for(UserInfo user:userDetailList)
+            {
+                if(user.getUserId()==id)
+                {
+                    user.setFirstName(userInfo.getFirstName());
+                    user.setLastName(userInfo.getLastName());
+                    user.setAge(userInfo.getAge());
+                    foundFlag=true;
+                }
+
+            }
+            if(!foundFlag)
+            {
+                userInfoWrapper.setInfoMessage("No record with the given ID exists.");
+            }
+            else
+            {
+                userInfoWrapper.getUserInfoList().add(userInfo);
+                userInfoWrapper.setInfoMessage("Record updated successfully!!");
+            }
+        }
+
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(userInfoWrapper);
+    }
+
+    /**
+     * deleteUserById(): This method is used to delete an existing user
+     * by taking ID as the parameter. If a record is found with the
+     * given ID, it will delete or else it will throw an error
+     * message.
+     * @param id - Unique Identifier assigned to the user
+     * @return ResponseEntity<UserInfoWrapper>
+     */
+    @DeleteMapping("deleteuserbyid/{id}")
+    public ResponseEntity<UserInfoWrapper> deleteUserById(@PathVariable("id") int id)
+    {
+        UserInfoWrapper userInfoWrapper=new UserInfoWrapper();
+        boolean foundFlag=false;
         for(UserInfo user:userDetailList)
         {
             if(user.getUserId()==id){
                 userDetailList.remove(user);
-                return ResponseEntity.ok(userDetailList);
-            }
-            else
-            {
-                return ResponseEntity.notFound().build();
+                foundFlag=true;
+                userInfoWrapper.setInfoMessage("Record deleted successfully!!");
+                break;
             }
         }
-        return ResponseEntity.notFound().build();
+        if(!foundFlag)
+        {
+            userInfoWrapper.setInfoMessage("No record with the given ID exists.");
+        }
+        return ResponseEntity.status(HttpStatus.CREATED).body(userInfoWrapper);
     }
  }

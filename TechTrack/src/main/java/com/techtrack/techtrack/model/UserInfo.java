@@ -1,3 +1,12 @@
+/**
+ * UserInfo.java: This class acts as the POJO class
+ * for the project. It contains the instance variables
+ * to store the user data.
+ *
+ * @author Sai Surya Prakash Moka
+ *
+ * @date 10-18-2023
+ */
 package com.techtrack.techtrack.model;
 public class UserInfo {
     private int userId;
@@ -5,9 +14,8 @@ public class UserInfo {
     private String lastName;
     private int age;
 
-    public  UserInfo(int userId,String firstName,String lastName,int age)
+    public  UserInfo(String firstName,String lastName,int age)
     {
-        this.userId=userId;
         this.firstName=firstName;
         this.lastName=lastName;
         this.age=age;
