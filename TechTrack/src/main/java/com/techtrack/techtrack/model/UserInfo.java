@@ -21,6 +21,10 @@ public class UserInfo {
         this.age=age;
     }
 
+    public void setUserId(int userId)
+    {
+        this.userId=userId;
+    }
     public int getUserId()
     {
         return this.userId;

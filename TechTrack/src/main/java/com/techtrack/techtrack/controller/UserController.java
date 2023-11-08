@@ -23,6 +23,7 @@ import java.util.List;
 public class UserController {
 
     private List<UserInfo> userDetailList=new ArrayList<UserInfo>();
+    private int autoTrackedUserId=0;
 
     /**
      * getAllUserDetails(): This method is used to return the details
@@ -104,6 +105,8 @@ public class UserController {
             userInfoWrapper.setErrorMessage("User with the same ID already exists. Please double check");
         }
         else {
+            autoTrackedUserId++;
+            userDetails.setUserId(autoTrackedUserId);
             userDetailList.add(userDetails);
             userInfoWrapper.getUserInfoList().add(userDetails);
             userInfoWrapper.setInfoMessage("User record added successfully!!");
@@ -138,6 +141,7 @@ public class UserController {
             {
                 if(user.getUserId()==id)
                 {
+                    user.setUserId(id);
                     user.setFirstName(userInfo.getFirstName());
                     user.setLastName(userInfo.getLastName());
                     user.setAge(userInfo.getAge());
@@ -151,6 +155,7 @@ public class UserController {
             }
             else
             {
+                userInfo.setUserId(id);
                 userInfoWrapper.getUserInfoList().add(userInfo);
                 userInfoWrapper.setInfoMessage("Record updated successfully!!");
             }
