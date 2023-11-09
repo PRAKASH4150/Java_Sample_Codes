@@ -1,3 +1,13 @@
+/**
+ * ButtonEventHandler.java:
+ * This file contains all the actions that need to be
+ * taken upon clicking the buttons and determine the winner.
+ *
+ * @author Sai Surya Prakash Moka
+ *
+ * @date 11/08/2023
+ */
+
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
@@ -6,32 +16,57 @@ import javafx.scene.paint.Color;
 
 public class ButtonEventHandler implements EventHandler<ActionEvent> {
 
-    private int row;
-    private int column;
     private static final int ROWS=6;
     private static final int COLUMNS=7;
-    private int [][]board=new int[ROWS][COLUMNS];
-    private Button [][]slots=new Button[ROWS][COLUMNS];
-    private Button resetButton;
-    private Label displayLabel=null;
     private static int currentPlayer=1;
+    private final int [][]board;
+    private final Button [][]slots;
+    private Label displayLabel=null;
+    private Button dummyButton=null;
     private int winner;
+    private int row;
+    private int column;
 
+    /**
+     * @param row - row of the button clicked
+     * @param column - column of the button clicked
+     * @param board - Accepts the board to track the winner
+     * @param slots - accepts the slots array
+     * @param displayLabel - Accepts the display label instance
+     *                     to display the info message.
+     * @param dummyButton- Accepts the dummyButton instance
+     */
 
-    ButtonEventHandler(int row,int column,int [][]board,Button [][]slots,Label displayLabel)
+    ButtonEventHandler(int row,int column,int [][]board,Button [][]slots,Label displayLabel, Button dummyButton)
     {
         this.row=row;
         this.column=column;
         this.board=board;
         this.displayLabel=displayLabel;
         this.slots=slots;
+        this.dummyButton=dummyButton;
     }
-    ButtonEventHandler(int [][]board,Button[][]slots,Label displayLabel)
+
+    /**
+     *
+     * @param board- Accepts the board to track the winner
+     * @param slots- accepts the slots array
+     * @param displayLabel- Accepts the display label instance
+     *      *                     to display the info message.
+     * @param dummyButton- Accepts the dummyButton instance
+     */
+    ButtonEventHandler(int [][]board,Button[][]slots,Label displayLabel,Button dummyButton)
     {
         this.board=board;
         this.slots=slots;
         this.displayLabel=displayLabel;
+        this.dummyButton=dummyButton;
     }
+
+    /**
+     *
+     * @param event the event which occurred
+     */
     @Override
     public void handle(ActionEvent event) {
         if (this.board[row][column] == 0) {
@@ -45,20 +80,30 @@ public class ButtonEventHandler implements EventHandler<ActionEvent> {
                 currentPlayer = 3 - currentPlayer;
                 this.displayLabel.setText("Player-"+ currentPlayer+"'s turn");
                 if(currentPlayer==1)
+                {
                     this.displayLabel.setTextFill(Color.RED);
+                    this.dummyButton.setText("Player-1");
+                    this.dummyButton.setStyle("-fx-background-color:red;" +
+                        "-fx-font-size:18px;-fx-font-weight:bold");
+                }
                 else
+                {
                     this.displayLabel.setTextFill(Color.BLACK);
+                    dummyButton.setText("Player-2");
+                    dummyButton.setStyle("-fx-background-color:black;" +
+                            "-fx-font-size:18px;-fx-font-weight:bold");
+                }
                 winner=determineWinner();
-                printBoard();
                 if(winner==1 || winner==2)
                 {
+                    System.out.println("CONGRATULATIONS!! PLAYER-"+ winner+" WON THE GAME!!!");
                     this.displayLabel.setText("CONGRATULATIONS!! PLAYER-"+ winner+" WON THE GAME!!!");
                     this.displayLabel.setTextFill(Color.GREEN);
                     disableAllButtons();
                 }
                 else if(winner==0)
                 {
-
+                    System.out.println("IT'S A TIE. PLEASE TRY AGAIN!!!");
                     this.displayLabel.setText("IT'S A TIE. PLEASE TRY AGAIN!!!");
                     this.displayLabel.setTextFill(Color.GREEN);
                     disableAllButtons();
@@ -69,6 +114,12 @@ public class ButtonEventHandler implements EventHandler<ActionEvent> {
 
     }
 
+    /**
+     * findAvailableSlot- Finds the available slot
+     * from the bottom for a given column.
+     * @param column The column in which the button is pressed.
+     * @return row at which the slot is available.
+     */
     public int findAvailableSlot(int column) {
         for (int row = ROWS - 1; row >= 0; row--) {
             if (board[row][column] == 0) {
@@ -78,6 +129,12 @@ public class ButtonEventHandler implements EventHandler<ActionEvent> {
         return -1;
     }
 
+    /**
+     *
+     * @return  1 - If player 1 is the winner
+     *          2 - If player 2 is the winner
+     *          0 - If the game is a tie.
+     */
     public int determineWinner() {
         int nonZeroCount=0;
         for (int row = 0; row < ROWS; row++) {
@@ -237,18 +294,10 @@ public class ButtonEventHandler implements EventHandler<ActionEvent> {
         }// No winner
     }
 
-    public void printBoard()
-    {
-        for(int i=0;i<ROWS;i++)
-        {
-            for(int j=0;j<COLUMNS;j++)
-            {
-                System.out.print(board[i][j]+" , ");
-            }
-            System.out.println();
-        }
-    }
 
+    /**
+     * resetGame(): Used to reset the game upon the button click.
+     */
     public void resetGame()
     {
         for (int i=0;i<ROWS;i++)
@@ -267,8 +316,16 @@ public class ButtonEventHandler implements EventHandler<ActionEvent> {
         winner=0;
         displayLabel.setText("Click on any button to start the Game");
         displayLabel.setTextFill(Color.BLACK);
+        this.dummyButton.setText("Player-1");
+        this.dummyButton.setStyle("-fx-background-color:red;" +
+                "-fx-font-size:18px;-fx-font-weight:bold");
     }
 
+    /**
+     * disableAllButtons(); Used to disable all
+     * the buttons upon winning. So that they cannot
+     * play further unless the players hits reset.
+     */
     public void disableAllButtons()
     {
         for(int i=0;i<COLUMNS;i++)
