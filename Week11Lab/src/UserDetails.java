@@ -1,3 +1,10 @@
+/**
+ * UserDetails: This is a POJO class to store the user profile details
+ *
+ * @author Sai Surya Prakash Moka
+ *
+ * @date 11/09/2023.
+ */
 public class UserDetails {
     private String fullName;
     private String emailAddress;

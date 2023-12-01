@@ -1,3 +1,14 @@
+/**
+ * UserRegistrationPortal.java: This file is used to
+ * layout the user registration form with all the necessary fields
+ * and attaching the event handlers to the buttons and the
+ * appropriate methods.
+ *
+ * @author Sai Surya Prakash Moka
+ *
+ * @date 09/11/2023.
+ */
+
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -14,6 +25,16 @@ public class UserRegistrationPortal extends Application {
 
     private static final double FIELD_WIDTH=200;
     private static final double FIELD_HEIGHT=50;
+
+    /**
+     *
+     * @param primaryStage the primary stage for this application, onto which
+     * the application scene can be set. The primary stage will be embedded in
+     * the browser if the application was launched as an applet.
+     * Applications may create other stages, if needed, but they will not be
+     * primary stages and will not be embedded in the browser.
+     * @throws Exception
+     */
     @Override
     public void start(Stage primaryStage) throws Exception {
         StackPane stackPane =null;
@@ -131,6 +152,11 @@ public class UserRegistrationPortal extends Application {
         primaryStage.setTitle("User Registration Portal");
         primaryStage.show();
     }
+
+    /**
+     *
+     * @param args
+     */
     public static void main(String[] args)
     {
      Application.launch();
